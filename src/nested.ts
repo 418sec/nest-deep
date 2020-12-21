@@ -25,6 +25,9 @@ export default function nested(object: SerializerObjectType = null): ResultObjec
     let m;
     // tslint:disable-next-line:no-conditional-assignment
     while (m = regex.exec(key)) {
+      if (m[1] == '__proto__' || m[1] == 'prototype' || m[1] == 'constructor') {
+                return;
+            }
       cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
       prop = m[2] || m[1];
     }
